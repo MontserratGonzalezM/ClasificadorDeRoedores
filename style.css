@@ -1,0 +1,59 @@
+.titulo {
+    color: black;
+    text-align: center;
+    padding: 14px;
+}
+
+#img {
+    display:block;
+    margin:auto;
+}
+
+#instrucc {
+    font-size: larger;
+    border: 12px solid #db6333;
+    text-align: center;
+}
+
+#instru{
+    text-align: center;
+    
+}
+
+#instrucciones {
+    font-size: larger;
+    font: lighter;
+    text-align: center;
+    padding: 6px;
+    border: 38px;
+    font-size: larger;
+    
+}
+
+#espacio{
+    padding: 12px;
+}
+
+#Form1 {
+    text-align: center;
+}
+
+#bot {
+    background-color: #BE7DA4;
+    font-size: medium;
+}
+
+#result {
+    font-size: x-large;
+    text-align: center;
+    padding: 10px solid #BE7DA4;
+    
+}
+
+body{
+    background: url(fondohamster.png) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Clasificador de imágenes</title>
+</head>
+
+
+ 
+
+<body>
+    <h1 id="titulo" class="titulo"><span id="instrucc" style="background-color: #db6333;">Clasificador de imágenes</span></h1>
+    <p id="instru"><span id="instrucc" style="background-color: #db6333;">Ingresa URL de una imagen de un roedor (ardilla, hámster o ratón) para saber que es!</span></p>
+    <p id="espacio"></p>
+    <form id="Form1">
+        <input id="url" type="url" placeholder="URL de la imagen">
+        <button id="bot" type="button" onclick="sendToPrediction()">Enviar</button> 
+    </form>
+
+    <p id="result"></p>
+
+</body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    
+    function sendToPrediction(){
+        const url = document.getElementById("url").value;
+        $.ajax({
+            url:"https://southcentralus.api.cognitive.microsoft.com/customvision/v3.0/Prediction/7543454c-9eab-455c-9447-2d859929754e/classify/iterations/Iteration3/url",
+            beforeSend: function(xhr0bj){
+                xhr0bj.setRequestHeader("Content-Type","application/json");
+                xhr0bj.setRequestHeader("Prediction-Key","57a081fadd654da69243d010ec37a2bd");
+            },
+            type: "POST",
+            data: '{"URL": "' + url + '"}"',
+        })
+        .done(function(data) {
+            //console.log(data.pred);
+            var Melement = "";
+            var Mprobability = 0;
+            data.predictions.forEach(element => {
+                if (Mprobability < element.probability){
+                    Mprobability = element.probability
+                    Melement = element.tagName
+                }//if
+            });
+            
+            const finalPred = Mprobability *100;
+            
+            switch (Melement)
+            {
+                case "ardilla": document.getElementById("result").innerHTML = "La probabilidad de que sea una ardilla es de " + finalPred + "%"
+                break;
+
+                case "hamster": document.getElementById("result").innerHTML = "La probabilidad de que sea un hamster es de " + finalPred + "%"
+                break;
+
+                case "raton": document.getElementById("result").innerHTML = "La probabilidad de que sea un ratón es de " + finalPred + "%"
+                break;
+
+                default: document.getElementById("result").innerHTML = "No sé que es :c"
+
+            }
+        })
+        .fail(function() {
+            document.getElementById("result").innerHTML = "Hubo un error en la ejecución"
+        })
+    }
+
+//background="FONDOA.jpg" style="background-color:#C1A9CF;"   <img id="img" src="ardillas.png">
+</script>
